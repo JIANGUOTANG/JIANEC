@@ -1,0 +1,13 @@
+<resources>
+    <dimen name="header_height">80dp</dimen>
+    <dimen name="round_btn_green_tk_corner">2.0dip</dimen>
+    <dimen name="login_quick_login_getCode_width">100dp</dimen>
+    <dimen name="login_quick_login_getCode_height">42dp</dimen>
+    <dimen name="login_quick_login_getCode_marginRight">8dp</dimen>
+    <dimen name="login_content_size">14sp</dimen>
+
+    <dimen name="login_account_login_checkBox_width">70dp</dimen>
+    <dimen name="login_account_login_checkBox_height">40dp</dimen>
+
+    <dimen name="buttonRadius">3dp</dimen>
+</resources>

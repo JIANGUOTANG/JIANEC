@@ -34,16 +34,17 @@ public class AddressAdapter extends MultipleRecyclerAdapter {
                 final String address = entity.getField(AddressItemFields.ADDRESS);
                 final boolean isDefault = entity.getField(MultipleFields.TAG);
                 final int id = entity.getField(MultipleFields.ID);
-
                 final AppCompatTextView nameText = holder.getView(R.id.tv_address_name);
                 final AppCompatTextView phoneText = holder.getView(R.id.tv_address_phone);
                 final AppCompatTextView addressText = holder.getView(R.id.tv_address_address);
+                final AppCompatTextView editText = holder.getView(R.id.tv_address_edit);
                 final AppCompatTextView deleteTextView = holder.getView(R.id.tv_address_delete);
+                //点击删除按钮
                 deleteTextView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         RestClient.builder()
-                                .url("address.php")
+                                .url("address.json")
                                 .params("id", id)
                                 .success(new ISuccess() {
                                     @Override
@@ -55,6 +56,13 @@ public class AddressAdapter extends MultipleRecyclerAdapter {
                                 .post();
                     }
                 });
+                editText.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        //点击编辑地址按钮
+                        return false;
+                    }
+                });
 
                 nameText.setText(name);
                 phoneText.setText(phone);
@@ -64,4 +72,6 @@ public class AddressAdapter extends MultipleRecyclerAdapter {
                 break;
         }
     }
+
+
 }

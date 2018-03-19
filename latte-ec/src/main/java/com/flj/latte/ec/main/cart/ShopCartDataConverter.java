@@ -20,7 +20,6 @@ public class ShopCartDataConverter extends DataConverter {
 
         final ArrayList<MultipleItemEntity> dataList = new ArrayList<>();
         final JSONArray dataArray = JSON.parseObject(getJsonData()).getJSONArray("data");
-
         final int size = dataArray.size();
         for (int i = 0; i < size; i++) {
             final JSONObject data = dataArray.getJSONObject(i);

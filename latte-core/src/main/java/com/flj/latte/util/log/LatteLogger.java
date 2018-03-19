@@ -7,14 +7,12 @@ import com.orhanobut.logger.Logger;
  */
 
 public final class LatteLogger {
-
     private static final int VERBOSE = 1;
     private static final int DEBUG = 2;
     private static final int INFO = 3;
     private static final int WARN = 4;
     private static final int ERROR = 5;
     private static final int NOTHING = 6;
-
     //控制log等级
     private static int LEVEL = VERBOSE;
 

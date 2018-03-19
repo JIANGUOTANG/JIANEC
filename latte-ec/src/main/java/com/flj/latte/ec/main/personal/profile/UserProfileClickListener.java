@@ -66,7 +66,7 @@ public class UserProfileClickListener extends SimpleClickListener {
 
                                                 //通知服务器更新信息
                                                 RestClient.builder()
-                                                        .url("user_profile.php")
+                                                        .url("user_profile.json")
                                                         .params("avatar", path)
                                                         .loader(DELEGATE.getContext())
                                                         .success(new ISuccess() {

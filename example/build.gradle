@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 26
     buildToolsVersion '27.0.1'
     defaultConfig {
         applicationId "com.diabin.fastec.example"
@@ -31,14 +31,17 @@ android {
     }
     productFlavors {
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':latte-ec')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':latte-ec')
     provided project(':latte-annotations')
     annotationProcessor project(':latte-compiler')
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    compile 'cn.jiguang.sdk:jpush:3.0.8'
-    compile 'cn.jiguang.sdk:jcore:1.1.6'
+    implementation 'cn.jiguang.sdk:jpush:3.0.8'
+    implementation 'cn.jiguang.sdk:jcore:1.1.6'
 }

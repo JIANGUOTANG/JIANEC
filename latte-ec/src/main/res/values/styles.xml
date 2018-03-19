@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--登录输入框样式-->
+    <style name="login_editText_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColorHint">@color/gray01</item>
+        <item name="android:textSize">14.0sp</item>
+    </style>
+    <!--获取验证码按钮样式-->
+    <style name="login_btn_getCode_style" parent="Base.Widget.AppCompat.Button">
+        <item name="android:layout_width">@dimen/login_quick_login_getCode_width</item>
+        <item name="android:layout_height">@dimen/login_quick_login_getCode_height</item>
+        <item name="android:layout_marginRight">@dimen/login_quick_login_getCode_marginRight</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:background">@drawable/btn_get_code_selector</item>
+        <item name="android:gravity">center</item>
+        <item name="android:text">@string/login_input_btn_get_code</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/login_content_size</item>
+    </style>
+    <!--登录按钮样式-->
+    <style name="login_btn_style" parent="Base.Widget.AppCompat.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginTop">30dp</item>
+        <item name="android:background">@drawable/btn_get_code_selector</item>
+        <item name="android:enabled">false</item>
+        <item name="android:text">@string/login_titleBar_login</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!--清空输入框样式-->
+    <style name="common_clear_input_imageView_style">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:src">@mipmap/delete_username</item>
+    </style>
+
+    <style name="me_horizontal_view_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dip</item>
+        <item name="android:background">#50666666</item>
+    </style>
+
+</resources>

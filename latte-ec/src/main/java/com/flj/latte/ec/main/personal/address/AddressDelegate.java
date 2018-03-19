@@ -6,10 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 
 import com.diabin.latte.ec.R;
-import com.diabin.latte.ec.R2;
 import com.flj.latte.delegates.LatteDelegate;
+import com.flj.latte.ec.main.personal.profile.UserProfileDelegate;
 import com.flj.latte.net.RestClient;
 import com.flj.latte.net.callback.ISuccess;
 import com.flj.latte.ui.recycler.MultipleItemEntity;
@@ -17,16 +18,14 @@ import com.flj.latte.util.log.LatteLogger;
 
 import java.util.List;
 
-import butterknife.BindView;
-
 /**
  * Created by 傅令杰
  */
 
 public class AddressDelegate extends LatteDelegate implements ISuccess {
 
-    @BindView(R2.id.rv_address)
-    RecyclerView mRecyclerView = null;
+    private RecyclerView mRecyclerView = null;
+    private Button mBtnAdd = null;
 
     @Override
     public Object setLayout() {
@@ -35,12 +34,22 @@ public class AddressDelegate extends LatteDelegate implements ISuccess {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
+        mRecyclerView = $(R.id.rv_address);
+        mBtnAdd = $(R.id.address_btn_add);
+
         RestClient.builder()
-                .url("address.php")
+                .url("address.json")
                 .loader(getContext())
                 .success(this)
                 .build()
                 .get();
+        //点解添加按钮
+        mBtnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               getSupportDelegate().start(new AddAddressDelegate());
+            }
+        });
     }
 
     @Override

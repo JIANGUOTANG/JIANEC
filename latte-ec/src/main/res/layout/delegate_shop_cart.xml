@@ -9,7 +9,7 @@
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:background="@color/app_main"
+        android:background="@color/colorToolbar"
         android:gravity="center">
 
         <RelativeLayout
@@ -140,7 +140,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/app_main"
+            android:background="@color/colorToolbar"
             android:gravity="center"
             android:text="结算"
             android:textColor="@android:color/white"

@@ -1,8 +1,7 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.jakewharton.butterknife'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 26
     buildToolsVersion '27.0.1'
     defaultConfig {
         minSdkVersion 19
@@ -21,12 +20,18 @@ android {
     }
     productFlavors {
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile project(':latte-ui')
     //圆形图片
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    //优惠券
+    compile 'com.github.dongjunkun:CouponView:1.0.4'
+
 }

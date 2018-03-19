@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/holo_orange_dark">
+        android:background="@color/colorToolbar">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -22,17 +23,6 @@
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
 
-            <com.joanzapata.iconify.widget.IconTextView
-                android:id="@+id/icon_address_add"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp"
-                android:gravity="center"
-                android:text="{fa-plus-square-o}"
-                android:textColor="@android:color/white"
-                android:textSize="30sp" />
-
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
@@ -40,6 +30,16 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_address"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/bg_common_gray"
+        />
+    <Button
+        android:id="@+id/address_btn_add"
+        style="@style/login_btn_getCode_style"
+        android:layout_height="36dp"
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:text="添加地址"/>
 
 </LinearLayout>

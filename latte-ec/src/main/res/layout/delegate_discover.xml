@@ -7,7 +7,7 @@
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@android:color/holo_orange_dark"
+        android:background="@color/colorToolbar"
         android:gravity="center">
 
         <android.support.v7.widget.AppCompatTextView
