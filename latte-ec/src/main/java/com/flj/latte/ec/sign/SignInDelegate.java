@@ -109,9 +109,9 @@ public class SignInDelegate extends LatteDelegate implements View.OnClickListene
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.tv_register) {
-            onClickSignIn();
-        } else if (i == R.id.login_btn_login) {
             onClickLink();
+        } else if (i == R.id.login_btn_login) {
+           onClickSignIn();
         }
     }
 }

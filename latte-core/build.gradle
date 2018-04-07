@@ -55,7 +55,7 @@ dependencies {
     //Log
     compile 'com.orhanobut:logger:2.1.1'
     //微信依赖（包含统计）
-    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.4.0'
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:5.1.4'
     //沉浸式状态栏
     compile 'com.github.niorgai:StatusBarCompat:2.1.4'
     //Google AutoValue
@@ -71,9 +71,11 @@ dependencies {
     //二维码扫描
     compile 'me.dm7.barcodescanner:zbar:1.9.8'
     //RxJava
-    compile 'io.reactivex.rxjava2:rxjava:2.1.5'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.6'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     //城市选择
     compile 'liji.library.dev:citypickerview:3.1.5'
+    //eventbus
+    compile 'org.greenrobot:eventbus:3.1.1'
 }

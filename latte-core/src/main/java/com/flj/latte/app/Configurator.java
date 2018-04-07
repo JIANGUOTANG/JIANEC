@@ -14,6 +14,7 @@ import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ExecutorService;
 
 import okhttp3.Interceptor;
 
@@ -102,7 +103,10 @@ public final class Configurator {
         LATTE_CONFIGS.put(ConfigKeys.ACTIVITY, activity);
         return this;
     }
-
+    public final Configurator withThreadPool(ExecutorService CachedThreadPool) {
+        LATTE_CONFIGS.put(ConfigKeys.THREAD_POOL, CachedThreadPool);
+        return this;
+    }
     public Configurator withJavascriptInterface(@NonNull String name) {
         LATTE_CONFIGS.put(ConfigKeys.JAVASCRIPT_INTERFACE, name);
         return this;

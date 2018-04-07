@@ -16,14 +16,13 @@
     <style name="login_btn_getCode_style" parent="Base.Widget.AppCompat.Button">
         <item name="android:layout_width">@dimen/login_quick_login_getCode_width</item>
         <item name="android:layout_height">@dimen/login_quick_login_getCode_height</item>
-        <item name="android:layout_marginRight">@dimen/login_quick_login_getCode_marginRight</item>
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:background">@drawable/btn_get_code_selector</item>
         <item name="android:gravity">center</item>
         <item name="android:text">@string/login_input_btn_get_code</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">@dimen/login_content_size</item>
+        <item name="android:textSize">@dimen/get_code_size</item>
     </style>
     <!--登录按钮样式-->
     <style name="login_btn_style" parent="Base.Widget.AppCompat.Button">

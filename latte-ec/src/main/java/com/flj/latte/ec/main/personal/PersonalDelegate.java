@@ -13,9 +13,11 @@ import com.flj.latte.ec.main.personal.address.AddressDelegate;
 import com.flj.latte.ec.main.personal.list.ListAdapter;
 import com.flj.latte.ec.main.personal.list.ListBean;
 import com.flj.latte.ec.main.personal.list.ListItemType;
+import com.flj.latte.ec.main.personal.non_payment.NonPayDelegate;
 import com.flj.latte.ec.main.personal.order.OrderListDelegate;
 import com.flj.latte.ec.main.personal.profile.UserProfileDelegate;
 import com.flj.latte.ec.main.personal.settings.SettingsDelegate;
+import com.flj.latte.ec.sign.SignUpDelegate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +42,7 @@ public class PersonalDelegate extends BottomItemDelegate {
     }
 
     private void onClickAvatar() {
-        getParentDelegate().getSupportDelegate().start(new UserProfileDelegate());
+        getParentDelegate().getSupportDelegate().start(new SignUpDelegate());
     }
 
     private void startOrderListByType() {
@@ -71,6 +73,15 @@ public class PersonalDelegate extends BottomItemDelegate {
                 onClickAvatar();
             }
         });
+
+        $(R.id.ll_pay).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                onClickAllOrder();
+            }
+        });
+
 
         final ListBean address = new ListBean.Builder()
                 .setItemType(ListItemType.ITEM_NORMAL)

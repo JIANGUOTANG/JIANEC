@@ -1,10 +1,10 @@
-package com.flj.latte.ec.main.personal.order;
+package com.flj.latte.ec.main.personal.non_payment;
 
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.SimpleClickListener;
-import com.flj.latte.ec.main.personal.non_payment.NonPayDelegate;
+import com.flj.latte.ec.main.personal.order.OrderListDelegate;
 import com.flj.latte.ec.main.personal.order.detail.OrderDetailDelegate;
 
 /**
@@ -13,9 +13,9 @@ import com.flj.latte.ec.main.personal.order.detail.OrderDetailDelegate;
 
 public class OrderListClickListener extends SimpleClickListener {
 
-    private final OrderListDelegate DELEGATE;
+    private final NonPayDelegate DELEGATE;
 
-    public OrderListClickListener(OrderListDelegate delegate) {
+    public OrderListClickListener(NonPayDelegate delegate) {
         this.DELEGATE = delegate;
     }
 

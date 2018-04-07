@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffe2e2e2"
+    android:background="@color/bg_common_gray"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
@@ -30,125 +31,113 @@
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
             android:orientation="vertical"
-
-            android:paddingTop="26dp">
+            android:paddingTop="8dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <EditText
                     android:id="@+id/register_et_phoneNumber"
                     style="@style/login_editText_style"
+                    android:hint="@string/login_input_phoneNumber_hint"
                     android:inputType="number"
-                    android:maxLength="11"
-                    android:hint="@string/login_input_phoneNumber_hint"/>
+                    android:maxLength="11" />
 
                 <ImageView
                     android:id="@+id/register_iv_clear_phoneNumber"
                     style="@style/common_clear_input_imageView_style"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
             </RelativeLayout>
 
-            <View
-                style="@style/me_horizontal_view_style"/>
+            <View style="@style/me_horizontal_view_style" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
                 <EditText
                     android:id="@+id/register_et_code"
                     style="@style/login_editText_style"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:hint="@string/login_input_check_code_hint"
                     android:inputType="number"
-                    android:maxLength="6"/>
+                    android:maxLength="6" />
+
                 <Button
                     android:id="@+id/register_btn_getCode"
-                    style="@style/login_btn_getCode_style"/>
-                <ImageView
-                    android:id="@+id/register_iv_clear_code"
-                    android:layout_toLeftOf="@+id/register_btn_getCode"
-                    android:layout_alignParentRight="false"
-                    style="@style/common_clear_input_imageView_style"
-                    android:visibility="gone"/>
-            </RelativeLayout>
-            <View
-                style="@style/me_horizontal_view_style"/>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/register_et_card"
-                    style="@style/login_editText_style"
-                    android:inputType="textPassword"
-                    android:hint="请输入身份证"/>
-                <ImageView
-                    android:id="@+id/register_iv_clear_card"
-                    android:visibility="gone"
-                    style="@style/common_clear_input_imageView_style"/>
-            </RelativeLayout>
-            <View
-                style="@style/me_horizontal_view_style"/>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/register_et_sNumber"
-                    style="@style/login_editText_style"
-                    android:inputType="textPassword"
-                    android:hint="请输入学生证"/>
-                <ImageView
-                    android:id="@+id/register_iv_clear_sNumber"
-                    android:visibility="gone"
-                    style="@style/common_clear_input_imageView_style"/>
-            </RelativeLayout>
+                    style="@style/login_btn_getCode_style"
+                    android:text="获取验证码"
+                    android:textSize="11sp" />
 
-            <View
-                style="@style/me_horizontal_view_style"/>
+
+            </LinearLayout>
+
+            <View style="@style/me_horizontal_view_style" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/register_et_password"
                     style="@style/login_editText_style"
-                    android:inputType="textPassword"
-                    android:hint="@string/login_input_password_hint"/>
+                    android:hint="@string/login_input_password_hint"
+                    android:inputType="textPassword" />
 
-                    <Switch
-                        android:id="@+id/register_password_checkBox"
-                        android:layout_width="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="8dp"
-                        android:layout_height="wrap_content" />
+                <Switch
+                    android:id="@+id/register_password_checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="8dp" />
 
                 <ImageView
                     android:id="@+id/register_iv_clear_password"
-                    android:layout_toLeftOf="@+id/register_password_checkBox"
+                    style="@style/common_clear_input_imageView_style"
                     android:layout_alignParentRight="false"
-                    android:visibility="gone"
-                    style="@style/common_clear_input_imageView_style"/>
+                    android:layout_toLeftOf="@+id/register_password_checkBox"
+                    android:visibility="gone" />
             </RelativeLayout>
 
-            <View
-                style="@style/me_horizontal_view_style"/>
+            <View style="@style/me_horizontal_view_style" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <EditText
                     android:id="@+id/register_et_repassword"
                     style="@style/login_editText_style"
-                    android:inputType="textPassword"
-                    android:hint="@string/login_input_repassword_hint"/>
+                    android:hint="@string/login_input_repassword_hint"
+                    android:inputType="textPassword" />
+
                 <ImageView
                     android:id="@+id/register_iv_clear_repassword"
-                    android:visibility="gone"
-                    style="@style/common_clear_input_imageView_style"/>
+                    style="@style/common_clear_input_imageView_style"
+                    android:visibility="gone" />
             </RelativeLayout>
+
+            <View style="@style/me_horizontal_view_style" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/register_iv_clear_sNumber"
+                    style="@style/common_clear_input_imageView_style"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <View style="@style/me_horizontal_view_style" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:padding="8dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="8dp">
 
                 <CheckBox
                     android:layout_width="wrap_content"
@@ -157,13 +146,21 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="我已详细阅读用户协议"
-                    />
+                    android:text="我已详细阅读用户协议" />
             </LinearLayout>
+
             <Button
-                android:id="@+id/register_btn_register"
+                android:id="@+id/register_btn_sign_up"
                 style="@style/login_btn_style"
-                android:text="@string/login_titleBar_register"/>
+                android:text="@string/login_titleBar_register" />
+
+            <TextView
+                android:id="@+id/tv_link_sign_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="7dp"
+                android:text="已经有账号？登陆" />
         </android.support.v7.widget.LinearLayoutCompat>
     </android.support.v4.widget.NestedScrollView>
 </android.support.v7.widget.LinearLayoutCompat>

@@ -48,37 +48,33 @@ public class UserProfileClickListener extends SimpleClickListener {
                             @Override
                             public void executeCallback(Uri args) {
                                 LatteLogger.d("ON_CROP", args);
-                                final ImageView avatar = (ImageView) view.findViewById(R.id.img_arrow_avatar);
+                                final ImageView avatar = view.findViewById(R.id.img_arrow_avatar);
                                 Glide.with(DELEGATE)
                                         .load(args)
                                         .into(avatar);
-
                                 RestClient.builder()
                                         .url(UploadConfig.UPLOAD_IMG)
                                         .loader(DELEGATE.getContext())
                                         .file(args.getPath())
-                                        .success(new ISuccess() {
-                                            @Override
-                                            public void onSuccess(String response) {
-                                                LatteLogger.d("ON_CROP_UPLOAD", response);
-                                                final String path = JSON.parseObject(response).getJSONObject("result")
-                                                        .getString("path");
+                                        .success(response -> {
+                                            LatteLogger.d("ON_CROP_UPLOAD", response);
+                                            final String path = JSON.parseObject(response).getJSONObject("result")
+                                                    .getString("path");
 
-                                                //通知服务器更新信息
-                                                RestClient.builder()
-                                                        .url("user_profile.json")
-                                                        .params("avatar", path)
-                                                        .loader(DELEGATE.getContext())
-                                                        .success(new ISuccess() {
-                                                            @Override
-                                                            public void onSuccess(String response) {
-                                                                //获取更新后的用户信息，然后更新本地数据库
-                                                                //没有本地数据的APP，每次打开APP都请求API，获取信息
-                                                            }
-                                                        })
-                                                        .build()
-                                                        .post();
-                                            }
+                                            //通知服务器更新信息
+                                            RestClient.builder()
+                                                    .url("user_profile.json")
+                                                    .params("avatar", path)
+                                                    .loader(DELEGATE.getContext())
+                                                    .success(new ISuccess() {
+                                                        @Override
+                                                        public void onSuccess(String response) {
+                                                            //获取更新后的用户信息，然后更新本地数据库
+                                                            //没有本地数据的APP，每次打开APP都请求API，获取信息
+                                                        }
+                                                    })
+                                                    .build()
+                                                    .post();
                                         })
                                         .build()
                                         .upload();
@@ -94,7 +90,7 @@ public class UserProfileClickListener extends SimpleClickListener {
                 getGenderDialog(new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        final TextView textView = (TextView) view.findViewById(R.id.tv_arrow_value);
+                        final TextView textView = view.findViewById(R.id.tv_arrow_value);
                         textView.setText(mGenders[which]);
                         dialog.cancel();
                     }
@@ -102,12 +98,9 @@ public class UserProfileClickListener extends SimpleClickListener {
                 break;
             case 4:
                 final DateDialogUtil dateDialogUtil = new DateDialogUtil();
-                dateDialogUtil.setDateListener(new DateDialogUtil.IDateListener() {
-                    @Override
-                    public void onDateChange(String date) {
-                        final TextView textView = (TextView) view.findViewById(R.id.tv_arrow_value);
-                        textView.setText(date);
-                    }
+                dateDialogUtil.setDateListener(date -> {
+                    final TextView textView = view.findViewById(R.id.tv_arrow_value);
+                    textView.setText(date);
                 });
                 dateDialogUtil.showDialog(DELEGATE.getContext());
                 break;

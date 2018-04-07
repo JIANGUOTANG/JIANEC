@@ -10,4 +10,6 @@
     <dimen name="login_account_login_checkBox_height">40dp</dimen>
 
     <dimen name="buttonRadius">3dp</dimen>
+
+    <dimen name="get_code_size">10sp</dimen>
 </resources>

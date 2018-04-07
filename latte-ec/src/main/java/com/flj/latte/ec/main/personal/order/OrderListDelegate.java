@@ -38,6 +38,7 @@ public class OrderListDelegate extends LatteDelegate {
         if (args != null) {
             mType = args.getString(PersonalDelegate.ORDER_TYPE);
         }
+
     }
 
     @Override

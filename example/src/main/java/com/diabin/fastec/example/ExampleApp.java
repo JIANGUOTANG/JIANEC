@@ -14,6 +14,8 @@ import com.flj.latte.util.callback.CallbackType;
 import com.flj.latte.util.callback.IGlobalCallback;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
+import java.util.concurrent.Executors;
+
 import cn.jpush.android.api.JPushInterface;
 
 /**
@@ -38,6 +40,7 @@ public class ExampleApp extends Application {
                 //添加Cookie同步拦截器
                 .withWebHost("https://www.baidu.com/")
                 .withInterceptor(new AddCookieInterceptor())
+                .withThreadPool(Executors.newCachedThreadPool())
                 .configure();
 
         //开启极光推送

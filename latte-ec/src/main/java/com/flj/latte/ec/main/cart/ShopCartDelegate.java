@@ -17,6 +17,8 @@ import com.alibaba.fastjson.JSON;
 import com.diabin.latte.ec.R;
 import com.flj.latte.delegates.bottom.BottomItemDelegate;
 import com.flj.latte.ec.main.EcBottomDelegate;
+import com.flj.latte.ec.main.confirm.ConfirmOrderDelegate;
+import com.flj.latte.ec.main.personal.address.AddAddressDelegate;
 import com.flj.latte.ec.pay.FastPay;
 import com.flj.latte.ec.pay.IAlPayResultListener;
 import com.flj.latte.net.RestClient;
@@ -100,31 +102,7 @@ public class ShopCartDelegate extends BottomItemDelegate implements View.OnClick
         checkItemCount();
     }
 
-    //创建订单，注意，和支付是没有关系的
-    private void createOrder() {
-        final String orderUrl = "你的生成订单的API";
-        final WeakHashMap<String, Object> orderParams = new WeakHashMap<>();
-        //加入你的参数
-        RestClient.builder()
-                .url(orderUrl)
-                .loader(getContext())
-                .params(orderParams)
-                .success(new ISuccess() {
-                    @Override
-                    public void onSuccess(String response) {
-                        //进行具体的支付
-                        LatteLogger.d("ORDER", response);
-                        final int orderId = JSON.parseObject(response).getInteger("result");
-                        FastPay.create(ShopCartDelegate.this)
-                                .setPayResultListener(ShopCartDelegate.this)
-                                .setOrderId(orderId)
-                                .beginPayDialog();
-                    }
-                })
-                .build()
-                .post();
 
-    }
 
     @SuppressWarnings("RestrictedApi")
     private void checkItemCount() {
@@ -174,6 +152,9 @@ public class ShopCartDelegate extends BottomItemDelegate implements View.OnClick
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
+        getShopCart();
+    }
+    private void  getShopCart(){
         RestClient.builder()
                 .url("shop_cart_data.json")
                 .loader(getContext())
@@ -181,6 +162,7 @@ public class ShopCartDelegate extends BottomItemDelegate implements View.OnClick
                 .build()
                 .get();
     }
+
 
     @Override
     public void onSuccess(String response) {
@@ -242,8 +224,8 @@ public class ShopCartDelegate extends BottomItemDelegate implements View.OnClick
             onClickClear();
 
         } else if (i == R.id.tv_shop_cart_pay) {
-            createOrder();
-
+//            createOrder();
+            getParentDelegate().start(new ConfirmOrderDelegate());
         }
     }
 }

@@ -49,15 +49,16 @@ public class ContentDelegate extends LatteDelegate {
     }
 
     private void initData() {
+        String url = mContentId==1?"sort_content_data_2.json":"sort_content_data_1.json";
         RestClient.builder()
-                .url("sort_content_data_1.json")
+                .url(url)
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
                         mData = new SectionDataConverter().convert(response);
                         final SectionAdapter sectionAdapter =
                                 new SectionAdapter(R.layout.item_section_content,
-                                        R.layout.item_section_header, mData);
+                                        R.layout.item_section_header, mData,ContentDelegate.this);
                         mRecyclerView.setAdapter(sectionAdapter);
                     }
                 })

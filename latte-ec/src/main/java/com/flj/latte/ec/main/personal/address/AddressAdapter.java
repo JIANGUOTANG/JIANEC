@@ -4,12 +4,17 @@ import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
 import com.diabin.latte.ec.R;
+import com.flj.latte.delegates.web.event.Event;
 import com.flj.latte.net.RestClient;
 import com.flj.latte.net.callback.ISuccess;
 import com.flj.latte.ui.recycler.MultipleFields;
 import com.flj.latte.ui.recycler.MultipleItemEntity;
 import com.flj.latte.ui.recycler.MultipleRecyclerAdapter;
 import com.flj.latte.ui.recycler.MultipleViewHolder;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -39,6 +44,12 @@ public class AddressAdapter extends MultipleRecyclerAdapter {
                 final AppCompatTextView addressText = holder.getView(R.id.tv_address_address);
                 final AppCompatTextView editText = holder.getView(R.id.tv_address_edit);
                 final AppCompatTextView deleteTextView = holder.getView(R.id.tv_address_delete);
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        EventBus.getDefault().post(entity);
+                    }
+                });
                 //点击删除按钮
                 deleteTextView.setOnClickListener(new View.OnClickListener() {
                     @Override

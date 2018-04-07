@@ -1,14 +1,14 @@
 package com.flj.latte.ec.pay;
 
 import android.app.Activity;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
-import android.support.v7.app.AlertDialog;
-import android.view.Gravity;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.RadioButton;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.diabin.latte.ec.R;
@@ -19,58 +19,86 @@ import com.flj.latte.net.RestClient;
 import com.flj.latte.net.callback.ISuccess;
 import com.flj.latte.ui.loader.LatteLoader;
 import com.flj.latte.util.log.LatteLogger;
+import com.flj.latte.util.toast.GlobalToast;
 import com.flj.latte.wechat.LatteWeChat;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
+
 /**
- * Created by 傅令杰
+ * Created by 11833 on 2018/4/6.
  */
-public class FastPay implements View.OnClickListener {
 
-    //设置支付回调监听
-    private IAlPayResultListener mIAlPayResultListener = null;
+public class PayDelegate extends LatteDelegate implements View.OnClickListener,IAlPayResultListener{
     private Activity mActivity = null;
-
-    private AlertDialog mDialog = null;
-    private int mOrderID = -1;
-
-    private FastPay(LatteDelegate delegate) {
-        this.mActivity = delegate.getProxyActivity();
-        this.mDialog = new AlertDialog.Builder(delegate.getContext()).create();
+    private Button mBtPay;
+    private RadioButton mRdoAliPay;
+    private RadioButton mRdoWeChatPay;
+    private int mOrderId;
+    private PayType mPayType = PayType.ALI_PAY;
+    public static final String ORDER_ID= "ORDER_ID";
+    @Override
+    public Object setLayout() {
+        return R.layout.delegate_pay;
     }
 
-    public static FastPay create(LatteDelegate delegate) {
-        return new FastPay(delegate);
+    @Override
+    public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
+        mBtPay = $(R.id.btn_pay);
+        mRdoAliPay = $(R.id.rdo_ali_pay);
+        mRdoWeChatPay = $(R.id.rdo_we_chat);
+        $(R.id.ll_pay_we_chat).setOnClickListener(this);//选择微信支付
+        $(R.id.ll_pay_ali).setOnClickListener(this);//选择支付宝支付
+        initPayInfo();
     }
 
-    public void beginPayDialog() {
-        mDialog.show();
-        final Window window = mDialog.getWindow();
-        if (window != null) {
-            window.setContentView(R.layout.dialog_pay_panel);
-            window.setGravity(Gravity.BOTTOM);
-            window.setWindowAnimations(R.style.anim_panel_up_from_bottom);
-            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            //设置属性
-            final WindowManager.LayoutParams params = window.getAttributes();
-            params.width = WindowManager.LayoutParams.MATCH_PARENT;
-            params.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-            window.setAttributes(params);
-
-            window.findViewById(R.id.btn_dialog_pay_alpay).setOnClickListener(this);
-            window.findViewById(R.id.btn_dialog_pay_wechat).setOnClickListener(this);
-            window.findViewById(R.id.btn_dialog_pay_cancel).setOnClickListener(this);
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        final Bundle args = getArguments();
+        if (args != null) {
+            mOrderId = args.getInt(ORDER_ID);
         }
     }
 
-    public FastPay setPayResultListener(IAlPayResultListener listener) {
-        this.mIAlPayResultListener = listener;
-        return this;
+    /**
+     * 初始化支付信息
+     */
+    private void initPayInfo(){
+        RestClient.builder()
+                .url("goods_detail_data_1.json")
+                .loader(getContext())
+                .success(response -> {
+                    final JSONObject data =
+                            JSON.parseObject(response).getJSONObject("data");
+                    initPager(data);
+
+                })
+                .build()
+                .get();
     }
 
-    public FastPay setOrderId(int orderId) {
-        this.mOrderID = orderId;
-        return this;
+    private void initPager(JSONObject data) {
+        mBtPay.setOnClickListener(this);
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        int viewId = view.getId();
+
+        if(viewId==R.id.btn_pay){
+            //点击支付按钮
+        }else if(viewId==R.id.ll_pay_we_chat){
+            mRdoAliPay.setChecked(false);
+            mRdoWeChatPay.setChecked(true);
+            mPayType = PayType.WE_CHAT_PAY;//微信支付
+
+        }
+        else if(viewId==R.id.ll_pay_ali){
+            mRdoWeChatPay.setChecked(false);
+            mRdoAliPay.setChecked(true);
+            mPayType = PayType.ALI_PAY;//支付宝支付
+        }
     }
 
     private void alPay(int orderId) {
@@ -84,7 +112,7 @@ public class FastPay implements View.OnClickListener {
                         final String paySign = JSON.parseObject(response).getString("result");
                         LatteLogger.d("PAY_SIGN", paySign);
                         //必须是异步的调用客户端支付接口
-                        final PayAsyncTask payAsyncTask = new PayAsyncTask(mActivity, mIAlPayResultListener);
+                        final PayAsyncTask payAsyncTask = new PayAsyncTask(getProxyActivity(), PayDelegate.this);
                         payAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, paySign);
                     }
                 })
@@ -131,16 +159,27 @@ public class FastPay implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        if (id == R.id.btn_dialog_pay_alpay) {
-            alPay(mOrderID);
-            mDialog.cancel();
-        } else if (id == R.id.btn_dialog_pay_wechat) {
-            weChatPay(mOrderID);
-            mDialog.cancel();
-        } else if (id == R.id.btn_dialog_pay_cancel) {
-            mDialog.cancel();
-        }
+    public void onPaySuccess() {
+        GlobalToast.toast("支付成功");
+    }
+
+    @Override
+    public void onPaying() {
+        GlobalToast.toast("正在支付");
+    }
+
+    @Override
+    public void onPayFail() {
+        GlobalToast.toast("正在失败");
+    }
+
+    @Override
+    public void onPayCancel() {
+        GlobalToast.toast("用户取消");
+    }
+
+    @Override
+    public void onPayConnectError() {
+        GlobalToast.toast("连接出错");
     }
 }

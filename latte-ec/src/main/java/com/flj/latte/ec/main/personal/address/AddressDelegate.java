@@ -13,8 +13,13 @@ import com.flj.latte.delegates.LatteDelegate;
 import com.flj.latte.ec.main.personal.profile.UserProfileDelegate;
 import com.flj.latte.net.RestClient;
 import com.flj.latte.net.callback.ISuccess;
+import com.flj.latte.ui.recycler.MultipleFields;
 import com.flj.latte.ui.recycler.MultipleItemEntity;
 import com.flj.latte.util.log.LatteLogger;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -53,6 +58,18 @@ public class AddressDelegate extends LatteDelegate implements ISuccess {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     public void onSuccess(String response) {
         LatteLogger.d("AddressDelegate", response);
         final LinearLayoutManager manager = new LinearLayoutManager(getContext());
@@ -61,5 +78,24 @@ public class AddressDelegate extends LatteDelegate implements ISuccess {
                 new AddressDataConverter().setJsonData(response).convert();
         final AddressAdapter addressAdapter = new AddressAdapter(data);
         mRecyclerView.setAdapter(addressAdapter);
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public  void setResult(MultipleItemEntity entity){
+
+        final String name = entity.getField(MultipleFields.NAME);
+        final String phone = entity.getField(AddressItemFields.PHONE);
+        final String address = entity.getField(AddressItemFields.ADDRESS);
+        final int id = entity.getField(MultipleFields.ID);
+        final boolean isDefault = entity.getField(MultipleFields.TAG);
+        Bundle bundle = new Bundle();
+        bundle.putString("name", name);
+        bundle.putInt("id", id);
+        bundle.putString("phone", phone);
+        bundle.putString("address", address);
+        bundle.putBoolean("isDefault", isDefault);
+        setFragmentResult(RESULT_OK, bundle);
+        getSupportDelegate().pop();
     }
 }

@@ -26,7 +26,7 @@ public class OrderListAdapter extends MultipleRecyclerAdapter {
             .centerCrop()
             .dontAnimate();
 
-    protected OrderListAdapter(List<MultipleItemEntity> data) {
+    public OrderListAdapter(List<MultipleItemEntity> data) {
         super(data);
         addItemType(OrderListItemType.ITEM_ORDER_LIST, R.layout.item_order_list);
     }
